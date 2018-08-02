@@ -36,7 +36,7 @@ public class MainThree extends Application {
     public void start(Stage primaryStage) throws IOException {
         // Costruttore e diamo il titolo alla finestra
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Client simonevizzuso@unito.edu");
+        this.primaryStage.setTitle("Client pippobaudo@unito.edu");
 
         //Mostriamo la finestra
         showMainView();

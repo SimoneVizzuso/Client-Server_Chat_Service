@@ -52,7 +52,7 @@ public class NewMailViewControllerThree {
     @FXML
     private void handleOk(){
         if (isInputValid()){
-            newMail.setSender("simonevizzuso@unito.edu");
+            newMail.setSender("pippobaudo@unito.edu");
             newMail.setReceiver(receiverField.getText());
             newMail.setCc(ccField.getText());
             newMail.setCcn(ccnField.getText());

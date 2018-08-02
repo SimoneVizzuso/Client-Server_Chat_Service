@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="progettoprogrammazione.clients.clientOne.view.MainViewControllerOne">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="progettoprogrammazione.clients.clientOne.view.MainViewControllerOne">
     <top>
         <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <buttons>
@@ -84,6 +84,7 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -101,7 +102,7 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
-                    <Label text="Oggetto" GridPane.rowIndex="2">
+                    <Label text="Oggetto" GridPane.rowIndex="3">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -109,7 +110,7 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
-                    <Label text="Cc" GridPane.rowIndex="1">
+                    <Label text="Cc" GridPane.rowIndex="2">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -125,7 +126,7 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
-                    <Label fx:id="ccLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label fx:id="ccLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -133,7 +134,7 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
-                    <Label fx:id="titleLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <Label fx:id="titleLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
                         <font>
                             <Font size="16.0" />
                         </font>
@@ -141,6 +142,22 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
+               <Label text="A" GridPane.rowIndex="1">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="10.0" />
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="receiverLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="10.0" />
+                  </GridPane.margin>
+               </Label>
                 </GridPane>
             </top>
             <center>

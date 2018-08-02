@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class ClientThree extends Thread{
     private static volatile boolean connectionState = false;
     private static ObjectOutputStream outStream;
+    public static String user = "pippobaudo@unito.edu";
 
     public ClientThree(){
         setDaemon(true);
@@ -31,7 +32,6 @@ public class ClientThree extends Thread{
 
                 setOutStream(new ObjectOutputStream(socket.getOutputStream()));
 
-                String user = "pippobaudo@unito.edu";
                 outStream.writeObject(user);
 
                 receive(socket);

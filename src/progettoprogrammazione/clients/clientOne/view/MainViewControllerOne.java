@@ -24,6 +24,8 @@ public class MainViewControllerOne implements Observer {
     @FXML
     private Label senderLabel;
     @FXML
+    private Label receiverLabel;
+    @FXML
     private Label ccLabel;
     @FXML
     private Label titleLabel;
@@ -40,11 +42,13 @@ public class MainViewControllerOne implements Observer {
     private void showMailDetails(MailViewOne mail){
         if (mail != null){
             senderLabel.setText(mail.getSender());
+            receiverLabel.setText(mail.getReceiver());
             ccLabel.setText(mail.getCc());
             titleLabel.setText(mail.getTitle());
             bodyArea.setText(mail.getBody());
         }else{
             senderLabel.setText("");
+            receiverLabel.setText("");
             ccLabel.setText("");
             titleLabel.setText("");
             bodyArea.setText("");
