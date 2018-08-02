@@ -42,7 +42,7 @@ public class ServerManageMail extends Thread{
         String path = "src/progettoprogrammazione/server/archive/error/";
 
         if (mail.getReceiver() != null){
-            path = ("src/progettoprogrammazione/server/server/archive/" + mail.getReceiver() + "/");
+            path = ("src/progettoprogrammazione/server/archive/" + mail.getReceiver() + "/");
         }
 
         try (PrintWriter p = new PrintWriter(new File(path + mail.getStringId() + ".txt"))) {

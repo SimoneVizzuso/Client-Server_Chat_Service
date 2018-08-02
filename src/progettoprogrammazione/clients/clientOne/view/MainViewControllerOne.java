@@ -33,7 +33,6 @@ public class MainViewControllerOne implements Observer {
     // Riferimento alla classe Main
     private MainOne main;
 
-
     public MainViewControllerOne(){
 
     }
@@ -60,13 +59,54 @@ public class MainViewControllerOne implements Observer {
 
         showMailDetails(null);
 
-        mailTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> progettoprogrammazione.clients.clientOne.view.MainViewControllerOne.this.showMailDetails(newValue));
+        mailTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> MainViewControllerOne.this.showMailDetails(newValue));
     }
 
     @FXML
     private void handleNewMail() {
         MailViewOne tM = new MailViewOne();
         boolean okClicked = main.showNewMailView(tM);
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientOne.sendView(mail);
+        }
+    }
+
+    @FXML
+    private void forwardMail(){
+        MailViewOne tM = new MailViewOne();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setTitle("Fwd: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientOne.sendView(mail);
+        }
+    }
+
+    @FXML
+    private void replyMail(){
+        MailViewOne tM = new MailViewOne();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setReceiver(temporaryMail.getSender());
+        tM.setTitle("Re: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
         if (okClicked) {
             //main.getMailData().add(tM);
             Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());

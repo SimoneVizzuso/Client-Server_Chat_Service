@@ -64,7 +64,7 @@ public class Server extends Thread{
                     }
                 }
 
-                (new File("src/progettoprogrammazione/server/server/archive/" + nameClient)).mkdirs();
+                (new File("src/progettoprogrammazione/server/archive/" + nameClient)).mkdirs();
 
                 us.updateConsole("Si è collegato " + nameClient + "\n");
                 clients.put(nameClient, socket);
