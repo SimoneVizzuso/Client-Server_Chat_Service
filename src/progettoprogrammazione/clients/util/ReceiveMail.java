@@ -53,6 +53,7 @@ public class ReceiveMail extends Thread{
             p.println(mail.getId());
             p.println(mail.getSender());
             p.println(mail.getReceiver());
+            p.println(mail.getCc());
             p.println(mail.getTitle());
             p.println(mail.getBody());
             p.println(mail.getDate());

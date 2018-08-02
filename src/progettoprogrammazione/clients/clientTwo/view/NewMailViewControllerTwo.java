@@ -16,6 +16,8 @@ public class NewMailViewControllerTwo {
     @FXML
     private TextField ccField;
     @FXML
+    private TextField ccnField;
+    @FXML
     private TextField titleField;
     @FXML
     private TextArea bodyArea;
@@ -38,6 +40,7 @@ public class NewMailViewControllerTwo {
 
         receiverField.setText(newMail.getReceiver());
         ccField.setText(newMail.getCc());
+        ccnField.setText(newMail.getCcn());
         titleField.setText(newMail.getTitle());
         bodyArea.setText(newMail.getBody());
     }
@@ -52,6 +55,7 @@ public class NewMailViewControllerTwo {
             newMail.setSender("gabrielelavorato@unito.edu");
             newMail.setReceiver(receiverField.getText());
             newMail.setCc(ccField.getText());
+            newMail.setCcn(ccnField.getText());
             newMail.setTitle(titleField.getText());
             newMail.setBody(bodyArea.getText());
             newMail.setDate(LocalDate.now());

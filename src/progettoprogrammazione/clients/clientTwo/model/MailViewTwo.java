@@ -8,19 +8,21 @@ public class MailViewTwo{
     private final StringProperty sender;
     private final StringProperty receiver;
     private final StringProperty cc;
+    private final StringProperty ccn;
     private final StringProperty title;
     private final StringProperty body;
     private final ObjectProperty<LocalDate> date;
     private final LongProperty id;
 
     public MailViewTwo(){
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
-    private MailViewTwo(String sender, String receiver, String cc, String title, String body){
+    private MailViewTwo(String sender, String receiver, String cc, String ccn, String title, String body){
         this.sender = new SimpleStringProperty(sender);
         this.receiver = new SimpleStringProperty(receiver);
         this.cc = new SimpleStringProperty(cc);
+        this.ccn = new SimpleStringProperty(ccn);
         this.title = new SimpleStringProperty(title);
         this.body = new SimpleStringProperty(body);
         this.date = new SimpleObjectProperty<>(LocalDate.now());
@@ -64,6 +66,19 @@ public class MailViewTwo{
 
     public StringProperty ccProperty() {
         return cc;
+    }
+
+    // CCN METHOD
+    public String getCcn() {
+        return ccn.get();
+    }
+
+    public void setCcn(String ccn) {
+        this.ccn.set(ccn);
+    }
+
+    public StringProperty ccnProperty() {
+        return ccn;
     }
 
     // TITLE METHOD

@@ -33,7 +33,6 @@ public class MainViewControllerTwo implements Observer {
     // Riferimento alla classe Main
     private MainTwo main;
 
-
     public MainViewControllerTwo(){
 
     }
@@ -60,7 +59,7 @@ public class MainViewControllerTwo implements Observer {
 
         showMailDetails(null);
 
-        mailTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> progettoprogrammazione.clients.clientTwo.view.MainViewControllerTwo.this.showMailDetails(newValue));
+        mailTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> MainViewControllerTwo.this.showMailDetails(newValue));
     }
 
     @FXML
@@ -69,7 +68,48 @@ public class MainViewControllerTwo implements Observer {
         boolean okClicked = main.showNewMailView(tM);
         if (okClicked) {
             //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientTwo.sendView(mail);
+        }
+    }
+
+    @FXML
+    private void forwardMail(){
+        MailViewTwo tM = new MailViewTwo();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewTwo temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setTitle("Fwd: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientTwo.sendView(mail);
+        }
+    }
+
+    @FXML
+    private void replyMail(){
+        MailViewTwo tM = new MailViewTwo();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewTwo temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setReceiver(temporaryMail.getSender());
+        tM.setTitle("Re: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientTwo.sendView(mail);
         }
     }
@@ -83,7 +123,7 @@ public class MainViewControllerTwo implements Observer {
     private void deleteMail(){
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        if (selectedIndex > 0) {
+        if (selectedIndex >= 0) {
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

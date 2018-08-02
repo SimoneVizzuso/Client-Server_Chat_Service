@@ -2,7 +2,7 @@ package progettoprogrammazione.resources;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 public class Mail implements Serializable{
     private LocalDate data;
@@ -10,17 +10,19 @@ public class Mail implements Serializable{
     private String sender;
     private String receiver;
     private String cc;
+    private String ccn;
     private String title;
     private String body;
 
     public Mail(){
-        this(null, null, null, null, null, null, 0);
+        this(null, null, null, null, null, null, null, 0);
     }
 
-    public Mail(String sender, String receiver, String cc, String title, String body, LocalDate date, long id){
+    public Mail(String sender, String receiver, String cc, String ccn, String title, String body, LocalDate date, long id){
         this.sender = sender;
         this.receiver = receiver;
         this.cc = cc;
+        this.ccn = ccn;
         this.title = title;
         this.body = body;
         this.data = date;
@@ -38,6 +40,8 @@ public class Mail implements Serializable{
     public String getCc() {
         return cc;
     }
+
+    public String getCcn() { return ccn; }
 
     public String getTitle() {
         return title;

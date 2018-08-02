@@ -68,7 +68,7 @@ public class MainViewControllerOne implements Observer {
         boolean okClicked = main.showNewMailView(tM);
         if (okClicked) {
             //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientOne.sendView(mail);
         }
     }
@@ -88,7 +88,7 @@ public class MainViewControllerOne implements Observer {
 
         if (okClicked) {
             //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientOne.sendView(mail);
         }
     }
@@ -109,7 +109,7 @@ public class MainViewControllerOne implements Observer {
 
         if (okClicked) {
             //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientOne.sendView(mail);
         }
     }
@@ -123,7 +123,7 @@ public class MainViewControllerOne implements Observer {
     private void deleteMail(){
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        if (selectedIndex > 0) {
+        if (selectedIndex >= 0) {
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

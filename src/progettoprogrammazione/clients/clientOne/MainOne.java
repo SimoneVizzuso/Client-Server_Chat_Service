@@ -69,7 +69,7 @@ public class MainOne extends Application {
             BorderPane newMailLayout = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nuova Mail");
+            dialogStage.setTitle("Scrivi Mail");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(newMailLayout);
