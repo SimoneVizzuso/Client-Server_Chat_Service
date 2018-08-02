@@ -35,7 +35,6 @@ public class ReceiveMail extends Thread{
     private void saveMail(Mail mail) {
         System.out.println("Sto salvando la mail\n");
         String path = "";
-
         switch (mail.getReceiver()) {
             case "simonevizzuso@unito.edu":
                 path = ("src/progettoprogrammazione/clients/clientOne/archive/");
