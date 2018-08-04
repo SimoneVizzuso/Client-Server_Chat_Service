@@ -34,6 +34,7 @@ public class MainViewControllerOne implements Observer {
 
     // Riferimento alla classe Main
     private MainOne main;
+    String user = ClientOne.user;
 
     public MainViewControllerOne(){
 
@@ -107,6 +108,28 @@ public class MainViewControllerOne implements Observer {
 
         tM.setBody("\n==========\n" + temporaryMail.getBody());
         tM.setReceiver(temporaryMail.getSender());
+        tM.setTitle("Re: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientOne.sendView(mail);
+        }
+    }
+
+    @FXML
+    private void replyAllMail(){
+        MailViewOne tM = new MailViewOne();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setReceiver(temporaryMail.getSender());
+        tM.setCc(temporaryMail.getAllReceiver(user));
         tM.setTitle("Re: " + temporaryMail.getTitle());
 
         boolean okClicked = main.showNewMailView(tM);

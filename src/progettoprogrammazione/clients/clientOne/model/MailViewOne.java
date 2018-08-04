@@ -3,6 +3,9 @@ package progettoprogrammazione.clients.clientOne.model;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MailViewOne{
     private final StringProperty sender;
@@ -131,5 +134,25 @@ public class MailViewOne{
 
     public ObjectProperty<LocalDate> dateProperty() {
         return date;
+    }
+
+    private List<String> convertToList(String users) {
+        if (users == null) {
+            return null;
+        } else {
+            return Arrays.asList(users.replace(" ", "").split(",", 0));
+        }
+    }
+
+    private String convertToString(List<String> users){
+        return String.join(",", users);
+    }
+
+    public String getAllReceiver(String user){
+        List<String> list = new ArrayList<>();
+        if (getReceiver() != null) { list.addAll(convertToList(getReceiver())); }
+        if (getCc() != null) { list.addAll(convertToList(getCc())); }
+        list.remove(user);
+        return convertToString(list);
     }
 }

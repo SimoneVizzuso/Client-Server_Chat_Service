@@ -54,8 +54,12 @@ public class NewMailViewControllerOne {
         if (isInputValid()){
             newMail.setSender("simonevizzuso@unito.edu");
             newMail.setReceiver(receiverField.getText());
-            newMail.setCc(ccField.getText());
-            newMail.setCcn(ccnField.getText());
+            if (ccField.getText() != null) {
+                newMail.setCc(ccField.getText());
+            }
+            if (ccnField.getText() != null) {
+                newMail.setCc(ccnField.getText());
+            }
             newMail.setTitle(titleField.getText());
             newMail.setBody(bodyArea.getText());
             newMail.setDate(LocalDate.now());

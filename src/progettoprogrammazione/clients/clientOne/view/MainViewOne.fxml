@@ -41,7 +41,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button mnemonicParsing="false" text="Rispondi a Tutti">
+                <Button mnemonicParsing="false" onAction="#replyAllMail" text="Rispondi a Tutti">
                     <font>
                         <Font size="16.0" />
                     </font>

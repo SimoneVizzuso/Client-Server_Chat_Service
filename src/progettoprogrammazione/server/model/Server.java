@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Server extends Thread{
@@ -26,7 +30,7 @@ public class Server extends Thread{
         try{
             listener = new ServerSocket(PORT); //create new ServerSocket
 
-            us.updateConsole("Server online!\n");
+            us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Server online!\n");
 
             while (true){
                 Socket socket = listener.accept(); //block, wait for client
@@ -66,7 +70,7 @@ public class Server extends Thread{
 
                 (new File("src/progettoprogrammazione/server/archive/" + nameClient)).mkdirs();
 
-                us.updateConsole("Si è collegato " + nameClient + "\n");
+                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Si è collegato " + nameClient + "\n");
                 clients.put(nameClient, socket);
                 receive(inStream, nameClient);
             } catch (IOException | ClassNotFoundException e){
