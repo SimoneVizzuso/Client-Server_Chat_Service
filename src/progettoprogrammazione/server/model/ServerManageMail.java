@@ -30,12 +30,19 @@ public class ServerManageMail extends Thread{
                 mail = (Mail) inStream.readObject();
                 if (mail.getAllReceiver() != null) {
                     for (String receiver : mail.getAllReceiver()) {
-                        if (clients.containsKey(receiver)) {
+                        //if () {
+                        if (new File("src/progettoprogrammazione/server/archive/" + receiver).exists()){
                             us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " È arrivato un nuovo messaggio da " + mail.getSender() + " a " + receiver + "\n");
                             savemail(mail, receiver);
-                            reSendMail(mail, receiver);
                         } else {
-                            errorMail(mail, receiver);
+                            if (clients.containsKey(receiver)){
+                                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Invio il messaggio " + mail.getId() + " a " + receiver);
+                                reSendMail(mail, receiver);
+                            }else{
+                                if (!receiver.equals("")) {
+                                    errorMail(mail, receiver);
+                                }
+                            }
                         }
                     }
                 }
@@ -49,10 +56,10 @@ public class ServerManageMail extends Thread{
     }
 
     private void savemail(Mail mail, String receiver){
-        us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Sto salvando la mail " + mail.getId() + "\n");
+        us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Sto salvando il messaggio " + mail.getId() + "\n");
         String path = "src/progettoprogrammazione/server/archive/error/";
 
-        if (receiver != null && clients.containsKey(receiver)) {
+        if (receiver != null) {
             path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
         }
 
@@ -85,7 +92,7 @@ public class ServerManageMail extends Thread{
                 us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Mail " + mail.getId() + " inviata a " + receiver + "\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Il ricevente non e' online");
         }
     }
 
@@ -98,7 +105,7 @@ public class ServerManageMail extends Thread{
                 out = new ObjectOutputStream(socket.getOutputStream());
                 Mail erMail = new Mail("Server", mail.getSender(), null, null, "Invio non riuscito mail " + mail.getId(), "La mail '" + mail.getTitle() + "' non è stata inviata perche' l'indirizzo mail '" + receiver + "' non esiste", LocalDate.now(), System.currentTimeMillis());
                 out.writeObject(erMail);
-                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Mail " + mail.getId() + " inviata a " + mail.getSender() + "\n");
+                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " La Mail " + mail.getId() + " è stata inviata a " + mail.getSender() + " perchè uno o più destinatari non esistono\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

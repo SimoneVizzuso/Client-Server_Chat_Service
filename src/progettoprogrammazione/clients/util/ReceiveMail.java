@@ -11,8 +11,10 @@ import java.net.Socket;
 public class ReceiveMail extends Thread{
     public static Update um = new Update();
     private Socket socket;
+    private final Object sync;
 
-    public ReceiveMail(Socket s){
+    public ReceiveMail(Socket s, Object sync){
+        this.sync = sync;
         socket = s;
         setDaemon(true);
     }
@@ -26,7 +28,10 @@ public class ReceiveMail extends Thread{
                 um.updateView(mail);
                 saveMail(mail);
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Sono stato scollegato dal server    " + e.getLocalizedMessage());
+                System.out.println("Sono stato scollegato dal server ");
+                synchronized(sync){
+                    sync.notify();
+                }
                 break;
             }
         }

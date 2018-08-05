@@ -10,9 +10,9 @@ import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 public class ClientTwo extends Thread{
-    private static volatile boolean connectionState = false;
     private static ObjectOutputStream outStream;
-    public static String user = "gabrielelavorato@unito.edu";
+    private static String user = "gabrielelavorato@unito.edu";
+    private final static Object sync = new Object();
 
     public ClientTwo(){
         setDaemon(true);
@@ -24,27 +24,29 @@ public class ClientTwo extends Thread{
 
     public void run(){
         System.out.println("Client Online");
-        while (!connectionState){
-            try {
-                Socket socket = new Socket("localhost", 1898);
-                System.out.println("Ho aperto la connessione con il server");
-                connectionState = true;
-
-                setOutStream(new ObjectOutputStream(socket.getOutputStream()));
-
-                outStream.writeObject(user);
-
-                receive(socket);
-                while (connectionState) {
-                    Thread.onSpinWait();
-                }
-            } catch (IOException e) {
-                System.out.println("Non sono riuscito a stabilire una connessione con il server");
+        boolean exit = false;
+        while (!exit){
+            synchronized(sync) {
                 try {
-                    System.out.println("Proverò ogni 5 secondi ad effettuare una nuova connessione");
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                    Socket socket = new Socket("localhost", 1898);
+                    System.out.println("Ho aperto la connessione con il server!");
+
+                    setOutStream(new ObjectOutputStream(socket.getOutputStream()));
+
+                    outStream.writeObject(user);
+
+                    receive(socket);
+                    sync.wait();
+                } catch (IOException e) {
+                    System.out.println("Non sono riuscito a stabilire una connessione con il server");
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    exit = true;
                 }
             }
         }
@@ -60,7 +62,7 @@ public class ClientTwo extends Thread{
     }
 
     private static void receive(Socket s) {
-        ReceiveMail rm = new ReceiveMail(s);
+        ReceiveMail rm = new ReceiveMail(s, sync);
         rm.start();
     }
 }
