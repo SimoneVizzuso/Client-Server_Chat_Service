@@ -47,6 +47,9 @@ public class ClientTwo extends Thread{
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    try {
+                        outStream.close();
+                    } catch (IOException ignored) { }
                     exit = true;
                 }
             }

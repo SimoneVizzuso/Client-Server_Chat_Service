@@ -152,7 +152,9 @@ public class MainViewControllerThree implements Observer {
 
         if (selectedIndex >= 0) {
             MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
-            ClientThree.deleteView(temporaryMail.getId());
+            if (!temporaryMail.getSender().equals("Server")) {
+                ClientThree.deleteView(temporaryMail.getId());
+            }
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -152,7 +152,9 @@ public class MainViewControllerTwo implements Observer {
 
         if (selectedIndex >= 0) {
             MailViewTwo temporaryMail = mailTable.getItems().get(selectedIndex);
-            ClientTwo.deleteView(temporaryMail.getId());
+            if (!temporaryMail.getSender().equals("Server")) {
+                ClientTwo.deleteView(temporaryMail.getId());
+            }
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -160,6 +162,7 @@ public class MainViewControllerTwo implements Observer {
             alert.setTitle("Errore Selezione");
             alert.setHeaderText("Non hai selezionato nessuna mail");
             alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alert.showAndWait();
         }
     }
 

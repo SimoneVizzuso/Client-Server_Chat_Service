@@ -72,7 +72,6 @@ public class MainViewControllerOne implements Observer {
         MailViewOne tM = new MailViewOne();
         boolean okClicked = main.showNewMailView(tM);
         if (okClicked) {
-            //main.getMailData().add(tM);
             Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientOne.sendView(mail);
         }
@@ -80,64 +79,85 @@ public class MainViewControllerOne implements Observer {
 
     @FXML
     private void handleForward(){
-        MailViewOne tM = new MailViewOne();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewOne tM = new MailViewOne();
+            MailViewOne temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setTitle("Fwd: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setTitle("Fwd: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientOne.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientOne.sendView(mail);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(main.getPrimaryStage());
+            alert.setTitle("Errore Selezione");
+            alert.setHeaderText("Non hai selezionato nessuna mail");
+            alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alert.showAndWait();
         }
     }
 
     @FXML
     private void handleReply(){
-        MailViewOne tM = new MailViewOne();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewOne tM = new MailViewOne();
+            MailViewOne temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setReceiver(temporaryMail.getSender());
-        tM.setTitle("Re: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setReceiver(temporaryMail.getSender());
+            tM.setTitle("Re: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientOne.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientOne.sendView(mail);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(main.getPrimaryStage());
+            alert.setTitle("Errore Selezione");
+            alert.setHeaderText("Non hai selezionato nessuna mail");
+            alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alert.showAndWait();
         }
     }
 
     @FXML
     private void handleReplyAll(){
-        MailViewOne tM = new MailViewOne();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewOne tM = new MailViewOne();
+            MailViewOne temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setReceiver(temporaryMail.getSender());
-        tM.setCc(temporaryMail.getAllReceiver(user));
-        tM.setTitle("Re: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setReceiver(temporaryMail.getSender());
+            tM.setCc(temporaryMail.getAllReceiver(user));
+            tM.setTitle("Re: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientOne.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientOne.sendView(mail);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(main.getPrimaryStage());
+            alert.setTitle("Errore Selezione");
+            alert.setHeaderText("Non hai selezionato nessuna mail");
+            alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alert.showAndWait();
         }
     }
 
@@ -151,15 +171,18 @@ public class MainViewControllerOne implements Observer {
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
-            MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
-            ClientOne.deleteView(temporaryMail.getId());
-            mailTable.getItems().remove(selectedIndex);
+            MailViewOne temporaryMail = main.getMailData().get(selectedIndex);
+            if (!temporaryMail.getSender().equals("Server")) {
+                ClientOne.deleteView(temporaryMail.getId());
+            }
+            main.getMailData().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(main.getPrimaryStage());
             alert.setTitle("Errore Selezione");
             alert.setHeaderText("Non hai selezionato nessuna mail");
             alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alert.showAndWait();
         }
     }
 
@@ -173,7 +196,7 @@ public class MainViewControllerOne implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Mail mail = (Mail) arg;
-        MailViewOne mailView= new MailViewOne();
+        MailViewOne mailView = new MailViewOne();
         mailView.setSender(mail.getSender());
         mailView.setReceiver(mail.getReceiver());
         mailView.setCc(mail.getCc());

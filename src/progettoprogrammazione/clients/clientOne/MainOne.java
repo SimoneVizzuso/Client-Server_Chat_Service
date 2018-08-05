@@ -1,7 +1,6 @@
 package progettoprogrammazione.clients.clientOne;
 
 import javafx.application.Application;
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;

@@ -31,7 +31,6 @@ public class ServerManageMail extends Thread{
                     Mail mail = (Mail) input;
                     if (mail.getAllReceiver() != null) {
                         for (String receiver : mail.getAllReceiver()) {
-                            //if () {
                             if (new File("src/progettoprogrammazione/server/archive/" + receiver).exists()) {
                                 us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " È arrivato un nuovo messaggio da " + mail.getSender() + " a " + receiver + "\n");
                                 savemail(mail, receiver);
