@@ -84,7 +84,7 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -142,22 +142,22 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                     </Label>
-               <Label text="A" GridPane.rowIndex="1">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-                  <GridPane.margin>
-                     <Insets left="10.0" />
-                  </GridPane.margin>
-               </Label>
-               <Label fx:id="receiverLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-                  <GridPane.margin>
-                     <Insets left="10.0" />
-                  </GridPane.margin>
-               </Label>
+                    <Label text="A" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                        <GridPane.margin>
+                            <Insets left="10.0" />
+                        </GridPane.margin>
+                    </Label>
+                    <Label fx:id="receiverLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                        <GridPane.margin>
+                            <Insets left="10.0" />
+                        </GridPane.margin>
+                    </Label>
                 </GridPane>
             </top>
             <center>
