@@ -34,7 +34,7 @@ public class MainViewControllerOne implements Observer {
 
     // Riferimento alla classe Main
     private MainOne main;
-    String user = ClientOne.user;
+    private String user = ClientOne.user;
 
     public MainViewControllerOne(){
 
@@ -79,7 +79,7 @@ public class MainViewControllerOne implements Observer {
     }
 
     @FXML
-    private void forwardMail(){
+    private void handleForward(){
         MailViewOne tM = new MailViewOne();
 
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
@@ -99,7 +99,7 @@ public class MainViewControllerOne implements Observer {
     }
 
     @FXML
-    private void replyMail(){
+    private void handleReply(){
         MailViewOne tM = new MailViewOne();
 
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
@@ -120,7 +120,7 @@ public class MainViewControllerOne implements Observer {
     }
 
     @FXML
-    private void replyAllMail(){
+    private void handleReplyAll(){
         MailViewOne tM = new MailViewOne();
 
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
@@ -147,10 +147,12 @@ public class MainViewControllerOne implements Observer {
     }
 
     @FXML
-    private void deleteMail(){
+    private void handleDelete(){
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
+            MailViewOne temporaryMail = mailTable.getItems().get(selectedIndex);
+            ClientOne.deleteView(temporaryMail.getId());
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

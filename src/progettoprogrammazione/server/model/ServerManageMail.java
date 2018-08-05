@@ -24,26 +24,42 @@ public class ServerManageMail extends Thread{
     }
 
     public void run() {
-        Mail mail;
-        while(true){
+                while(true){
             try {
-                mail = (Mail) inStream.readObject();
-                if (mail.getAllReceiver() != null) {
-                    for (String receiver : mail.getAllReceiver()) {
-                        //if () {
-                        if (new File("src/progettoprogrammazione/server/archive/" + receiver).exists()){
-                            us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " È arrivato un nuovo messaggio da " + mail.getSender() + " a " + receiver + "\n");
-                            savemail(mail, receiver);
-                        } else {
-                            if (clients.containsKey(receiver)){
-                                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Invio il messaggio " + mail.getId() + " a " + receiver);
+                Object input = inStream.readObject();
+                if (input instanceof Mail) {
+                    Mail mail = (Mail) input;
+                    if (mail.getAllReceiver() != null) {
+                        for (String receiver : mail.getAllReceiver()) {
+                            //if () {
+                            if (new File("src/progettoprogrammazione/server/archive/" + receiver).exists()) {
+                                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " È arrivato un nuovo messaggio da " + mail.getSender() + " a " + receiver + "\n");
+                                savemail(mail, receiver);
+                            }
+
+                            if (clients.containsKey(receiver)) {
+                                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Invio il messaggio " + mail.getId() + " a " + receiver + "\n");
                                 reSendMail(mail, receiver);
-                            }else{
+                            } else {
                                 if (!receiver.equals("")) {
                                     errorMail(mail, receiver);
                                 }
                             }
+
                         }
+                    }
+                } else if (input instanceof Long){
+                    Long idMail = (Long) input;
+                    String path = ("src/progettoprogrammazione/server/archive/" + nameClient + "/");
+                    File file = new File(path + idMail + ".txt");
+
+                    if(file.delete())
+                    {
+                        System.out.println("Mail eliminata");
+                    }
+                    else
+                    {
+                        System.out.println("Mail non eliminata");
                     }
                 }
             } catch (IOException e) {

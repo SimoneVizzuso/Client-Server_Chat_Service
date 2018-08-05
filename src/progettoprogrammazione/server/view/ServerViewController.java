@@ -45,7 +45,7 @@ public class ServerViewController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        String text = String.valueOf(arg);
+        String text = (String) arg;
         console.appendText(text);
     }
 }

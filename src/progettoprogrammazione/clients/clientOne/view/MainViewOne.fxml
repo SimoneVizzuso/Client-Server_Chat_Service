@@ -25,7 +25,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#deleteMail" text="Elimina">
+                <Button mnemonicParsing="false" onAction="#handleDelete" text="Elimina">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -33,7 +33,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#forwardMail" text="Inoltra">
+                <Button mnemonicParsing="false" onAction="#handleForward" text="Inoltra">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -41,7 +41,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#replyAllMail" text="Rispondi a Tutti">
+                <Button mnemonicParsing="false" onAction="#handleReplyAll" text="Rispondi a Tutti">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -49,7 +49,7 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#replyMail" text="Rispondi">
+                <Button mnemonicParsing="false" onAction="#handleReply" text="Rispondi">
                     <font>
                         <Font size="16.0" />
                     </font>

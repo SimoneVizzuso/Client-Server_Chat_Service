@@ -26,7 +26,7 @@ public class ReceiveMail extends Thread{
                 ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
                 mail = (Mail) inStream.readObject();
                 um.updateView(mail);
-                saveMail(mail);
+                //saveMail(mail);
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Sono stato scollegato dal server ");
                 synchronized(sync){

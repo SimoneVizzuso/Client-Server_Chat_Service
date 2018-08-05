@@ -34,6 +34,7 @@ public class MainViewControllerThree implements Observer {
 
     // Riferimento alla classe Main
     private MainThree main;
+    private String user = ClientThree.user;
 
     public MainViewControllerThree(){
 
@@ -78,7 +79,7 @@ public class MainViewControllerThree implements Observer {
     }
 
     @FXML
-    private void forwardMail(){
+    private void handleForward(){
         MailViewThree tM = new MailViewThree();
 
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
@@ -98,7 +99,7 @@ public class MainViewControllerThree implements Observer {
     }
 
     @FXML
-    private void replyMail(){
+    private void handleReply(){
         MailViewThree tM = new MailViewThree();
 
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
@@ -119,15 +120,39 @@ public class MainViewControllerThree implements Observer {
     }
 
     @FXML
+    private void handleReplyAll(){
+        MailViewThree tM = new MailViewThree();
+
+        int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
+
+        MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+
+        tM.setBody("\n==========\n" + temporaryMail.getBody());
+        tM.setReceiver(temporaryMail.getSender());
+        tM.setCc(temporaryMail.getAllReceiver(user));
+        tM.setTitle("Re: " + temporaryMail.getTitle());
+
+        boolean okClicked = main.showNewMailView(tM);
+
+        if (okClicked) {
+            //main.getMailData().add(tM);
+            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+            ClientThree.sendView(mail);
+        }
+    }
+
+    @FXML
     private void handleExit() {
         System.exit(0);
     }
 
     @FXML
-    private void deleteMail(){
+    private void handleDelete(){
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
+            MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+            ClientThree.deleteView(temporaryMail.getId());
             mailTable.getItems().remove(selectedIndex);
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

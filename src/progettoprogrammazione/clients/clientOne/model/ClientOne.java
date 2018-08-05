@@ -1,5 +1,6 @@
 package progettoprogrammazione.clients.clientOne.model;
 
+import progettoprogrammazione.clients.util.DeleteMail;
 import progettoprogrammazione.clients.util.ReceiveMail;
 import progettoprogrammazione.clients.util.SendMail;
 import progettoprogrammazione.resources.Mail;
@@ -61,8 +62,17 @@ public class ClientOne extends Thread{
         sm.start();
     }
 
-    private static void receive(Socket s) {
+    private static void receive(Socket s){
         ReceiveMail rm = new ReceiveMail(s, sync);
         rm.start();
+    }
+
+    public static void deleteView(long id){
+        delete(id, outStream);
+    }
+
+    private static void delete(long id, ObjectOutputStream out){
+        DeleteMail dm = new DeleteMail(id, out);
+        dm.start();
     }
 }
