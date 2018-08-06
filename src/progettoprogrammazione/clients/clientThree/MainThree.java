@@ -1,7 +1,6 @@
 package progettoprogrammazione.clients.clientThree;
 
 import javafx.application.Application;
-import java.util.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +10,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import progettoprogrammazione.clients.clientThree.model.ClientThree;
 import progettoprogrammazione.clients.clientThree.model.MailViewThree;
+import progettoprogrammazione.clients.clientThree.util.ReceiveMail;
 import progettoprogrammazione.clients.clientThree.view.MainViewControllerThree;
 import progettoprogrammazione.clients.clientThree.view.NewMailViewControllerThree;
-import progettoprogrammazione.clients.util.ReceiveMail;
 
 import java.io.IOException;
 
@@ -25,6 +24,10 @@ public class MainThree extends Application {
 
     // Costruttore del main che gli passa delle mail di esempio
     public MainThree() {
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     // Ritorna i dati come una lista observable di mail
@@ -53,6 +56,9 @@ public class MainThree extends Application {
         Scene scene = new Scene(mainLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        ClientThree c = new ClientThree();
+        c.start();
 
         // Diamo al controller l'accesso alla classe Main
         MainViewControllerThree controller = loader.getController();
@@ -90,13 +96,8 @@ public class MainThree extends Application {
         }
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     public static void main(String[] args) {
-        ClientThree c = new ClientThree();
-        c.start();
         launch(args);
+
     }
 }

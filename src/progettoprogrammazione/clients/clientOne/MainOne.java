@@ -26,6 +26,10 @@ public class MainOne extends Application {
     public MainOne() {
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     // Ritorna i dati come una lista observable di mail
     public ObservableList<MailViewOne> getMailData() {
         return mailData;
@@ -52,6 +56,9 @@ public class MainOne extends Application {
         Scene scene = new Scene(mainLayout);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        ClientOne c = new ClientOne();
+        c.start();
 
         // Diamo al controller l'accesso alla classe Main
         MainViewControllerOne controller = loader.getController();
@@ -90,8 +97,7 @@ public class MainOne extends Application {
     }
 
     public static void main(String[] args) {
-        ClientOne c = new ClientOne();
-        c.start();
         launch(args);
+
     }
 }

@@ -1,9 +1,9 @@
 package progettoprogrammazione.clients.clientOne.model;
 
 import progettoprogrammazione.clients.clientOne.util.DeleteMail;
+import progettoprogrammazione.clients.clientOne.util.Mail;
 import progettoprogrammazione.clients.clientOne.util.ReceiveMail;
 import progettoprogrammazione.clients.clientOne.util.SendMail;
-import progettoprogrammazione.clients.clientOne.util.Mail;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -25,6 +25,7 @@ public class ClientOne extends Thread{
 
     public void run(){
         System.out.println("Client Online");
+
         boolean exit = false;
         while (!exit) {
             try {

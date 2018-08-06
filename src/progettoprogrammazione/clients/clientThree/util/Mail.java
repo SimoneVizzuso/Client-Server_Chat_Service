@@ -1,11 +1,12 @@
-package progettoprogrammazione.clients.clientOne.util;
+package progettoprogrammazione.clients.clientThree.util;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Mail{
+public class Mail implements Serializable{
     private String sender;
     private List<String> receiver = new ArrayList<>();
     private List<String> cc = new ArrayList<>();

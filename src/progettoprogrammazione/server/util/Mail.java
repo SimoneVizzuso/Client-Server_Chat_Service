@@ -127,7 +127,7 @@ public class Mail implements Serializable{
         return list;
     }
 
-    public ArrayList<String> convertMailToString(Mail mail){
+    public ArrayList<String> convertMailToString(){
         ArrayList<String> export = new ArrayList<>();
         export.add(getSender());
         export.add(getReceiver());

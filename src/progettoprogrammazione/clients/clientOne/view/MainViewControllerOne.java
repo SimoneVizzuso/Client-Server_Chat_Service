@@ -182,6 +182,7 @@ public class MainViewControllerOne implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Mail mail = (Mail) arg;
+        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
         MailViewOne mailView = new MailViewOne();
         mailView.setSender(mail.getSender());
         mailView.setReceiver(mail.getReceiver());
@@ -192,7 +193,6 @@ public class MainViewControllerOne implements Observer {
         mailView.setDate(mail.getDate());
 
         main.getMailData().add(mailView);
-        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void alarmNoMail(){

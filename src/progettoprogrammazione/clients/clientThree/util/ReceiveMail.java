@@ -1,4 +1,4 @@
-package progettoprogrammazione.clients.clientTwo.util;
+package progettoprogrammazione.clients.clientThree.util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

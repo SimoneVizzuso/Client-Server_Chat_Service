@@ -1,14 +1,20 @@
 package progettoprogrammazione.clients.clientThree.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import progettoprogrammazione.clients.clientThree.MainThree;
 import progettoprogrammazione.clients.clientThree.model.ClientThree;
 import progettoprogrammazione.clients.clientThree.model.MailViewThree;
-import progettoprogrammazione.resources.Mail;
+import progettoprogrammazione.clients.clientThree.util.Mail;
 
+import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class MainViewControllerThree implements Observer {
 
@@ -72,7 +78,6 @@ public class MainViewControllerThree implements Observer {
         MailViewThree tM = new MailViewThree();
         boolean okClicked = main.showNewMailView(tM);
         if (okClicked) {
-            //main.getMailData().add(tM);
             Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
             ClientThree.sendView(mail);
         }
@@ -80,64 +85,70 @@ public class MainViewControllerThree implements Observer {
 
     @FXML
     private void handleForward(){
-        MailViewThree tM = new MailViewThree();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewThree tM = new MailViewThree();
+            MailViewThree temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setTitle("Fwd: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setTitle("Fwd: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientThree.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientThree.sendView(mail);
+            }
+        }else{
+            alarmNoMail();
         }
     }
 
     @FXML
     private void handleReply(){
-        MailViewThree tM = new MailViewThree();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewThree tM = new MailViewThree();
+            MailViewThree temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setReceiver(temporaryMail.getSender());
-        tM.setTitle("Re: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setReceiver(temporaryMail.getSender());
+            tM.setTitle("Re: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientThree.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientThree.sendView(mail);
+            }
+        }else{
+            alarmNoMail();
         }
     }
 
     @FXML
     private void handleReplyAll(){
-        MailViewThree tM = new MailViewThree();
-
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
-        MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+        if (selectedIndex >= 0) {
+            MailViewThree tM = new MailViewThree();
+            MailViewThree temporaryMail = main.getMailData().get(selectedIndex);
 
-        tM.setBody("\n==========\n" + temporaryMail.getBody());
-        tM.setReceiver(temporaryMail.getSender());
-        tM.setCc(temporaryMail.getAllReceiver(user));
-        tM.setTitle("Re: " + temporaryMail.getTitle());
+            tM.setBody("\n==========\n" + temporaryMail.getBody());
+            tM.setReceiver(temporaryMail.getSender());
+            tM.setCc(temporaryMail.getAllReceiver(user));
+            tM.setTitle("Re: " + temporaryMail.getTitle());
 
-        boolean okClicked = main.showNewMailView(tM);
+            boolean okClicked = main.showNewMailView(tM);
 
-        if (okClicked) {
-            //main.getMailData().add(tM);
-            Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
-            ClientThree.sendView(mail);
+            if (okClicked) {
+                Mail mail = new Mail(tM.getSender(), tM.getReceiver(), tM.getCc(), tM.getCcn(), tM.getTitle(), tM.getBody(), tM.getDate(), tM.getId());
+                ClientThree.sendView(mail);
+            }
+        }else{
+            alarmNoMail();
         }
     }
 
@@ -151,17 +162,13 @@ public class MainViewControllerThree implements Observer {
         int selectedIndex = mailTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
-            MailViewThree temporaryMail = mailTable.getItems().get(selectedIndex);
+            MailViewThree temporaryMail = main.getMailData().get(selectedIndex);
             if (!temporaryMail.getSender().equals("Server")) {
                 ClientThree.deleteView(temporaryMail.getId());
             }
-            mailTable.getItems().remove(selectedIndex);
+            main.getMailData().remove(selectedIndex);
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(main.getPrimaryStage());
-            alert.setTitle("Errore Selezione");
-            alert.setHeaderText("Non hai selezionato nessuna mail");
-            alert.setContentText("Per favore, seleziona una mail dalla tabella");
+            alarmNoMail();
         }
     }
 
@@ -175,7 +182,8 @@ public class MainViewControllerThree implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Mail mail = (Mail) arg;
-        MailViewThree mailView= new MailViewThree();
+        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
+        MailViewThree mailView = new MailViewThree();
         mailView.setSender(mail.getSender());
         mailView.setReceiver(mail.getReceiver());
         mailView.setCc(mail.getCc());
@@ -185,5 +193,9 @@ public class MainViewControllerThree implements Observer {
         mailView.setDate(mail.getDate());
 
         main.getMailData().add(mailView);
+    }
+
+    private void alarmNoMail(){
+        showMessageDialog(null , "Non hai selezionato nessuna mail", "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }

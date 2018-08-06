@@ -1,8 +1,9 @@
 package progettoprogrammazione.clients.clientTwo.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import progettoprogrammazione.clients.clientTwo.MainTwo;
 import progettoprogrammazione.clients.clientTwo.model.ClientTwo;
@@ -181,6 +182,7 @@ public class MainViewControllerTwo implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Mail mail = (Mail) arg;
+        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
         MailViewTwo mailView = new MailViewTwo();
         mailView.setSender(mail.getSender());
         mailView.setReceiver(mail.getReceiver());
@@ -191,7 +193,6 @@ public class MainViewControllerTwo implements Observer {
         mailView.setDate(mail.getDate());
 
         main.getMailData().add(mailView);
-        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void alarmNoMail(){

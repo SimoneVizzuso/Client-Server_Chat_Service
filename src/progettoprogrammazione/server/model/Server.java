@@ -39,14 +39,14 @@ public class Server extends Thread{
                 clientHandler.start();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getStackTrace();
         } finally {
-            try {
-                if (listener != null) {
+            if (listener != null) {
+                try {
                     listener.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -61,7 +61,6 @@ public class Server extends Thread{
         public void run(){
             try{
                 ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
-
                 String nameClient = (String) inStream.readObject();
 
                 synchronized (clients) {
@@ -69,7 +68,6 @@ public class Server extends Thread{
                         clients.put(nameClient, socket);
                     }
                 }
-
                 (new File("src/progettoprogrammazione/server/archive/" + nameClient)).mkdirs();
 
                 us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Si è collegato " + nameClient + "\n");
