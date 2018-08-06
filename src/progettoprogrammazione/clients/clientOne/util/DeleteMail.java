@@ -1,4 +1,4 @@
-package progettoprogrammazione.clients.util;
+package progettoprogrammazione.clients.clientOne.util;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -15,6 +15,7 @@ public class DeleteMail extends Thread{
     public void run(){
         try {
             outStream.writeObject(idMail);
+            outStream.flush();
             System.out.println("Ho inviato l'id della mail da eliminare al server");
         } catch (IOException e) {
             System.out.println("Non sono riuscito ad inviare l'id della mail da eliminare");

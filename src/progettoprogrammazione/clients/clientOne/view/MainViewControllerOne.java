@@ -1,14 +1,20 @@
 package progettoprogrammazione.clients.clientOne.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import progettoprogrammazione.clients.clientOne.MainOne;
 import progettoprogrammazione.clients.clientOne.model.ClientOne;
 import progettoprogrammazione.clients.clientOne.model.MailViewOne;
-import progettoprogrammazione.resources.Mail;
+import progettoprogrammazione.clients.clientOne.util.Mail;
 
+import javax.swing.*;
 import java.util.Observable;
 import java.util.Observer;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class MainViewControllerOne implements Observer {
 
@@ -95,12 +101,7 @@ public class MainViewControllerOne implements Observer {
                 ClientOne.sendView(mail);
             }
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(main.getPrimaryStage());
-            alert.setTitle("Errore Selezione");
-            alert.setHeaderText("Non hai selezionato nessuna mail");
-            alert.setContentText("Per favore, seleziona una mail dalla tabella");
-            alert.showAndWait();
+            alarmNoMail();
         }
     }
 
@@ -123,12 +124,7 @@ public class MainViewControllerOne implements Observer {
                 ClientOne.sendView(mail);
             }
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(main.getPrimaryStage());
-            alert.setTitle("Errore Selezione");
-            alert.setHeaderText("Non hai selezionato nessuna mail");
-            alert.setContentText("Per favore, seleziona una mail dalla tabella");
-            alert.showAndWait();
+            alarmNoMail();
         }
     }
 
@@ -152,12 +148,7 @@ public class MainViewControllerOne implements Observer {
                 ClientOne.sendView(mail);
             }
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(main.getPrimaryStage());
-            alert.setTitle("Errore Selezione");
-            alert.setHeaderText("Non hai selezionato nessuna mail");
-            alert.setContentText("Per favore, seleziona una mail dalla tabella");
-            alert.showAndWait();
+            alarmNoMail();
         }
     }
 
@@ -177,12 +168,7 @@ public class MainViewControllerOne implements Observer {
             }
             main.getMailData().remove(selectedIndex);
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(main.getPrimaryStage());
-            alert.setTitle("Errore Selezione");
-            alert.setHeaderText("Non hai selezionato nessuna mail");
-            alert.setContentText("Per favore, seleziona una mail dalla tabella");
-            alert.showAndWait();
+            alarmNoMail();
         }
     }
 
@@ -206,5 +192,10 @@ public class MainViewControllerOne implements Observer {
         mailView.setDate(mail.getDate());
 
         main.getMailData().add(mailView);
+        showMessageDialog( null , "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void alarmNoMail(){
+        showMessageDialog(null , "Non hai selezionato nessuna mail", "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }

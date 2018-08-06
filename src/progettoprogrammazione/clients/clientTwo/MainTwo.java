@@ -10,9 +10,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import progettoprogrammazione.clients.clientTwo.model.ClientTwo;
 import progettoprogrammazione.clients.clientTwo.model.MailViewTwo;
+import progettoprogrammazione.clients.clientTwo.util.ReceiveMail;
 import progettoprogrammazione.clients.clientTwo.view.MainViewControllerTwo;
 import progettoprogrammazione.clients.clientTwo.view.NewMailViewControllerTwo;
-import progettoprogrammazione.clients.util.ReceiveMail;
 
 import java.io.IOException;
 
@@ -87,10 +87,6 @@ public class MainTwo extends Application {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     public static void main(String[] args) {

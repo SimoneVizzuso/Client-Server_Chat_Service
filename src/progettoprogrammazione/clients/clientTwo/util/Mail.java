@@ -1,4 +1,4 @@
-package progettoprogrammazione.resources;
+package progettoprogrammazione.clients.clientTwo.util;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -7,14 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Mail implements Serializable{
-    private LocalDate data;
-    private long id;
     private String sender;
     private List<String> receiver = new ArrayList<>();
     private List<String> cc = new ArrayList<>();
     private List<String> ccn = new ArrayList<>();
     private String title;
     private String body;
+    private LocalDate data;
+    private long id;
 
     public Mail(){
         this(null, null, null, null, null, null, null, 0);
@@ -35,8 +35,16 @@ public class Mail implements Serializable{
         return sender;
     }
 
+    private void setSender(String s) {
+        sender = s;
+    }
+
     public String getReceiver() {
         return convertToString(receiver);
+    }
+
+    private void setReceiver(String r) {
+        receiver = convertToList(r);
     }
 
     public List<String> getReceiverList() {
@@ -47,11 +55,19 @@ public class Mail implements Serializable{
         return convertToString(cc);
     }
 
+    private void setCc(String c) {
+        cc = convertToList(c);
+    }
+
     public List<String> getCcList() {
         return cc;
     }
 
     public String getCcn() { return convertToString(ccn); }
+
+    private void setCcn(String cn) {
+        ccn = convertToList(cn);
+    }
 
     public List<String> getCcnList() {
         return ccn;
@@ -61,17 +77,31 @@ public class Mail implements Serializable{
         return title;
     }
 
+    private void setTitle(String t) {
+        title = t;
+    }
+
     public String getBody() {
         return body;
+    }
+
+    private void setBody(String b) {
+        body = b;
     }
 
     public LocalDate getDate() {
         return data;
     }
 
+    private void setData(String d) {
+        data = LocalDate.parse(d);
+    }
+
     public long getId() {
         return id;
     }
+
+    private void setId(String i) { id = Long.parseLong(i);}
 
     public String getStringId(){
         return Long.toString(id);
@@ -95,5 +125,29 @@ public class Mail implements Serializable{
         if (!getCcList().isEmpty()) {list.addAll(getCcList());}
         if (!getCcnList().isEmpty()) {list.addAll(getCcnList());}
         return list;
+    }
+
+    public ArrayList<String> convertMailToString(){
+        ArrayList<String> export = new ArrayList<>();
+        export.add(getSender());
+        export.add(getReceiver());
+        export.add(getCc());
+        export.add(getCcn());
+        export.add(getTitle());
+        export.add(getBody());
+        export.add(getDate().toString());
+        export.add(String.valueOf(getId()));
+        return export;
+    }
+
+    public void convertStringToMail(ArrayList<String> input) {
+        setSender(input.get(0));
+        setReceiver(input.get(1));
+        setCc(input.get(2));
+        setCcn(input.get(3));
+        setTitle(input.get(4));
+        setBody(input.get(5));
+        setData(input.get(6));
+        setId(input.get(7));
     }
 }

@@ -97,7 +97,6 @@ public class NewMailViewControllerOne {
             alert.setTitle("Campi non validi");
             alert.setHeaderText("Per favore, correggere gli errori");
             alert.setContentText(errorMessage);
-
             alert.showAndWait();
             return false;
         }

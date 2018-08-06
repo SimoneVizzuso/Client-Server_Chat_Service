@@ -1,6 +1,4 @@
-package progettoprogrammazione.clients.util;
-
-import progettoprogrammazione.resources.Mail;
+package progettoprogrammazione.clients.clientTwo.util;
 
 import java.util.Observable;
 

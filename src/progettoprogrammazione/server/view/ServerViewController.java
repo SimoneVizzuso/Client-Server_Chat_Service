@@ -32,7 +32,7 @@ public class ServerViewController implements Observer {
 
     @FXML
     private void handleCancel() {
-        //main.getPrimaryStage().close();
+        main.getPrimaryStage().close();
         System.exit(0);
     }
 
