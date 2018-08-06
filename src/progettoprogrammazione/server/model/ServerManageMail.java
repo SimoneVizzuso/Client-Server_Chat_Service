@@ -57,24 +57,23 @@ public class ServerManageMail extends Thread{
         File[] listOfFiles = folder.listFiles();
         ObjectOutputStream outStream;
         Socket socket = clients.get(nameClient);
-        ArrayList<String> export = new ArrayList<>();
-        String line;
 
         assert listOfFiles != null;
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
                 try {
-                    FileReader fileReader = new FileReader(listOfFile);
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    while((line = bufferedReader.readLine()) != null) {
-                        export.add(line);
-                        System.out.println(line);
-                    }
+                    FileInputStream fileIn = new FileInputStream(listOfFile);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+
+                    Mail mail = (Mail) in.readObject();
+
                     outStream = new ObjectOutputStream(socket.getOutputStream());
-                    outStream.writeObject(export);
+                    outStream.writeObject(mail.convertMailToString());
                     outStream.flush();
-                    bufferedReader.close();
-                } catch (IOException e) {
+
+                    in.close();
+                    fileIn.close();
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
@@ -89,15 +88,12 @@ public class ServerManageMail extends Thread{
             path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
         }
 
-        try (PrintWriter p = new PrintWriter(new File(path + mail.getStringId() + ".txt"))) {
-            p.println(mail.getSender());
-            p.println(mail.getReceiver());
-            p.println(mail.getCc());
-            p.println(mail.getCcn());
-            p.println(mail.getTitle());
-            p.println(mail.getBody());
-            p.println(mail.getDate());
-            p.println(mail.getId());
+        try {
+            FileOutputStream fileOut = new FileOutputStream(path + mail.getStringId() + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(mail);
+            out.close();
+            fileOut.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
