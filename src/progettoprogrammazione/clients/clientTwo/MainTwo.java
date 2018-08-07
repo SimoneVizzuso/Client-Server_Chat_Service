@@ -57,14 +57,14 @@ public class MainTwo extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        ClientTwo c = new ClientTwo();
-        c.start();
-
         // Diamo al controller l'accesso alla classe Main
         MainViewControllerTwo controller = loader.getController();
         controller.setMain(this);
 
         ReceiveMail.um.addObserver(controller);
+
+        ClientTwo c = new ClientTwo();
+        c.start();
     }
 
     // Metodo per mostrare la finestra New MailView

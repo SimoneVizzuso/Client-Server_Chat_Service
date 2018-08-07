@@ -57,14 +57,14 @@ public class MainOne extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        ClientOne c = new ClientOne();
-        c.start();
-
         // Diamo al controller l'accesso alla classe Main
         MainViewControllerOne controller = loader.getController();
         controller.setMain(this);
 
         ReceiveMail.um.addObserver(controller);
+
+        ClientOne c = new ClientOne();
+        c.start();
     }
 
     // Metodo per mostrare la finestra New MailView

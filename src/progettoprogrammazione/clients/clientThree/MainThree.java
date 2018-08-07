@@ -57,14 +57,14 @@ public class MainThree extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        ClientThree c = new ClientThree();
-        c.start();
-
         // Diamo al controller l'accesso alla classe Main
         MainViewControllerThree controller = loader.getController();
         controller.setMain(this);
 
         ReceiveMail.um.addObserver(controller);
+
+        ClientThree c = new ClientThree();
+        c.start();
     }
 
     // Metodo per mostrare la finestra New MailView
