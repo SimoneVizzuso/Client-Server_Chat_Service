@@ -31,7 +31,7 @@ public class Server extends Thread{
         try{
             listener = new ServerSocket(PORT); //create new ServerSocket
 
-            us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Server online!\n");
+            us.updateConsole("Server online!");
 
             while (true){
                 Socket socket = listener.accept(); //block, wait for client
@@ -70,7 +70,7 @@ public class Server extends Thread{
                 }
                 (new File("src/progettoprogrammazione/server/archive/" + nameClient)).mkdirs();
 
-                us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Si è collegato " + nameClient + "\n");
+                us.updateConsole("Si è collegato " + nameClient);
                 receive(inStream, nameClient);
             } catch (IOException | ClassNotFoundException e){
                 e.printStackTrace();

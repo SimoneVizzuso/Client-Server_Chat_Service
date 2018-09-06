@@ -200,7 +200,7 @@ public class MainViewControllerOne implements Observer {
         }
 
         if (!exist) {
-            showMessageDialog(null, "È arrivata una nuova mail da " + mail.getSender(), "Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog(null, "È arrivata una nuova mail!\nMittente: " + mail.getSender() + "\nTitolo: " + mail.getTitle(), user + " - Nuova mail!", JOptionPane.INFORMATION_MESSAGE);
             main.getMailData().add(mailView);
         }
     }
