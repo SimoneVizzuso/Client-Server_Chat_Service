@@ -24,14 +24,11 @@ public class ClientOne extends Thread{
     }
 
     public void run(){
-        System.out.println("Client Online");
-
         boolean exit = false;
-        while (!exit) {
-            try {
+        while(!exit) {
+            try{
                 synchronized (sync) {
                     Socket socket = new Socket("localhost", 1898);
-                    System.out.println("Ho aperto la connessione con il server!");
 
                     setOutStream(new ObjectOutputStream(socket.getOutputStream()));
 
@@ -39,10 +36,10 @@ public class ClientOne extends Thread{
                     outStream.flush();
 
                     receive(socket);
+
                     sync.wait();
                 }
             } catch (IOException e) {
-                System.out.println("Non sono riuscito a stabilire una connessione con il server");
                 try {
                     TimeUnit.SECONDS.sleep(5);
                 } catch (InterruptedException e1) {

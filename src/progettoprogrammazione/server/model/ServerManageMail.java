@@ -44,9 +44,9 @@ public class ServerManageMail extends Thread{
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (ClassCastException e){
-                System.out.println("Problema");
+                //System.out.println("Problema");
                 e.printStackTrace();
-                System.out.println(e.getLocalizedMessage() + "\n\n" + e.getMessage() + "\n\n" + e.toString());
+                //System.out.println(e.getLocalizedMessage() + "\n\n" + e.getMessage() + "\n\n" + e.toString());
             }
 
         }
@@ -82,11 +82,7 @@ public class ServerManageMail extends Thread{
 
     private void saveMail(Mail mail, String receiver){
         us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Sto salvando il messaggio " + mail.getId() + "\n");
-        String path = "src/progettoprogrammazione/server/archive/error/";
-
-        if (receiver != null) {
-            path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
-        }
+        String path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
 
         try {
             FileOutputStream fileOut = new FileOutputStream(path + mail.getStringId() + ".ser");
@@ -120,9 +116,7 @@ public class ServerManageMail extends Thread{
     }
 
     private void sendMail(Mail mail, String receiver){
-        Socket socket = null;
-
-        if (receiver != null) { socket = clients.get(receiver); }
+        Socket socket = clients.get(receiver);
 
         ObjectOutputStream outStream;
         try {
@@ -131,8 +125,7 @@ public class ServerManageMail extends Thread{
                 outStream.writeObject(mail.convertMailToString());
                 us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Mail " + mail.getId() + " inviata a " + receiver + "\n");
             }
-        } catch (IOException e) {
-            System.out.println("Il ricevente non e' online");
+        } catch (IOException e){
             e.getStackTrace();
         }
     }
@@ -155,7 +148,7 @@ public class ServerManageMail extends Thread{
 
     private void deleteMail(Long idMail){
         String path = ("src/progettoprogrammazione/server/archive/" + nameClient + "/");
-        File file = new File(path + idMail + ".txt");
+        File file = new File(path + idMail + ".ser");
 
         if(file.delete()){
             us.updateConsole(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(LocalDateTime.now()) + " Ho eliminato la mail " + idMail + " di " + nameClient + "\n");

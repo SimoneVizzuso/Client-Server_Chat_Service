@@ -29,7 +29,6 @@ public class ReceiveMail extends Thread{
                 }
             } catch (IOException e) {
                 e.getStackTrace();
-                System.out.println("Sono stato scollegato dal server ");
                 synchronized (sync) {
                     sync.notify();
                 }

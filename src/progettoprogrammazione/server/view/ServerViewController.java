@@ -19,7 +19,9 @@ public class ServerViewController implements Observer {
     @FXML
     public Button StartButton;
 
-    public ServerViewController(){ }
+    public ServerViewController(){
+
+    }
 
     @FXML
     public void initialize(){

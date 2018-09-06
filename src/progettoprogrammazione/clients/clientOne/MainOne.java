@@ -22,15 +22,11 @@ public class MainOne extends Application {
 
     private ObservableList<MailViewOne> mailData = FXCollections.observableArrayList();
 
-    // Costruttore del main che gli passa delle mail di esempio
     public MainOne() {
+
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    // Ritorna i dati come una lista observable di mail
+    // Restituisce i dati come una lista observable di mail
     public ObservableList<MailViewOne> getMailData() {
         return mailData;
     }
@@ -98,6 +94,5 @@ public class MainOne extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 }

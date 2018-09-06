@@ -122,7 +122,6 @@ public class Mail{
         List<String> list = new ArrayList<>();
         if (!getReceiverList().isEmpty()) {list.addAll(getReceiverList());}
         if (!getCcList().isEmpty()) {list.addAll(getCcList());}
-        if (!getCcnList().isEmpty()) {list.addAll(getCcnList());}
         return list;
     }
 
