@@ -25,29 +25,6 @@ public class ServerManageMail extends Thread{
         uploadMail();
     }
 
-    public void run() {
-        while(true){
-            try {
-                Object input = inStream.readObject();
-                if (input instanceof ArrayList) {
-                    Mail mail = new Mail();
-                    mail.convertStringToMail((ArrayList<String>) input);
-                    receiveMail(mail);
-                } else if (input instanceof Long){
-                    Long idMail = (Long) input;
-                    deleteMail(idMail);
-                }
-            } catch (IOException e) {
-                us.updateConsole("Si è disconnesso " + nameClient);
-                clients.remove(nameClient);
-                break;
-            } catch (ClassNotFoundException | ClassCastException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
     private void uploadMail (){
         File folder = new File("src/progettoprogrammazione/server/archive/" + nameClient + "/");
         File[] listOfFiles = folder.listFiles();
@@ -76,20 +53,27 @@ public class ServerManageMail extends Thread{
         }
     }
 
-    private void saveMail(Mail mail, String receiver){
-        us.updateConsole("Sto salvando il messaggio " + mail.getId());
-        String path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
+    public void run() {
+        while(true){
+            try {
+                Object input = inStream.readObject();
+                if (input instanceof ArrayList) {
+                    Mail mail = new Mail();
+                    mail.convertStringToMail((ArrayList<String>) input);
+                    receiveMail(mail);
+                } else if (input instanceof Long){
+                    Long idMail = (Long) input;
+                    deleteMail(idMail);
+                }
+            } catch (IOException e) {
+                us.updateConsole("Si è disconnesso " + nameClient);
+                clients.remove(nameClient);
+                break;
+            } catch (ClassNotFoundException | ClassCastException e) {
+                e.printStackTrace();
+            }
 
-        try {
-            FileOutputStream fileOut = new FileOutputStream(path + mail.getStringId() + ".ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(mail);
-            out.close();
-            fileOut.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
-        // NB: Se il file esiste gia', il PrintWriter e' null
     }
 
     private void receiveMail(Mail mail){
@@ -111,6 +95,22 @@ public class ServerManageMail extends Thread{
         }
     }
 
+    private void saveMail(Mail mail, String receiver){
+        us.updateConsole("Sto salvando il messaggio " + mail.getId());
+        String path = ("src/progettoprogrammazione/server/archive/" + receiver + "/");
+
+        try {
+            FileOutputStream fileOut = new FileOutputStream(path + mail.getStringId() + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(mail);
+            out.close();
+            fileOut.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        // NB: Se il file esiste gia', il PrintWriter e' null
+    }
+
     private void sendMail(Mail mail, String receiver){
         Socket socket = clients.get(receiver);
 
@@ -128,13 +128,12 @@ public class ServerManageMail extends Thread{
 
     private void errorMail(Mail mail, String receiver){
         Socket socket = clients.get(mail.getSender());
-
         ObjectOutputStream outStream;
         try {
             if (socket != null) {
                 outStream = new ObjectOutputStream(socket.getOutputStream());
                 Mail erMail = new Mail("Server", mail.getSender(), null, null, "Invio non riuscito mail " + mail.getId(), "La mail '" + mail.getTitle() + "' non è stata inviata perche' l'indirizzo mail '" + receiver + "' non esiste", LocalDate.now(), System.currentTimeMillis());
-                outStream.writeObject(erMail);
+                outStream.writeObject(erMail.convertMailToString());
                 us.updateConsole("La Mail " + mail.getId() + " è stata inviata a " + mail.getSender() + " perchè uno o più destinatari non esistono");
             }
         } catch (IOException e) {

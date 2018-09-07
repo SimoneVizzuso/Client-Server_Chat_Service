@@ -16,9 +16,8 @@ public class DeleteMail extends Thread{
         try {
             outStream.writeObject(idMail);
             outStream.flush();
-            System.out.println("Ho inviato l'id della mail da eliminare al server");
         } catch (IOException e) {
-            System.out.println("Non sono riuscito ad inviare l'id della mail da eliminare");
+            e.printStackTrace();
         }
     }
 }

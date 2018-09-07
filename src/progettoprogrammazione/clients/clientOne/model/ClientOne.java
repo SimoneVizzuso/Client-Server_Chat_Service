@@ -14,6 +14,7 @@ public class ClientOne extends Thread{
     private static ObjectOutputStream outStream;
     public static String user = "simonevizzuso@unito.edu";
     private final static Object sync = new Object();
+    public static boolean connect = false;
 
     public ClientOne(){
         setDaemon(true);
@@ -35,17 +36,21 @@ public class ClientOne extends Thread{
                     outStream.writeObject(user);
                     outStream.flush();
 
+                    connect = true;
+
                     receive(socket);
 
                     sync.wait();
                 }
             } catch (IOException e) {
+                connect = false;
                 try {
                     TimeUnit.SECONDS.sleep(5);
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
             } catch (InterruptedException e) {
+                connect = false;
                 e.printStackTrace();
                 exit = true;
             }

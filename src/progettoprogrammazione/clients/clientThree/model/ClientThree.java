@@ -15,6 +15,7 @@ public class ClientThree extends Thread{
     private static ObjectOutputStream outStream;
     public static String user = "pippobaudo@unito.edu";
     private final static Object sync = new Object();
+    public static boolean connect = false;
 
     public ClientThree(){
         setDaemon(true);
@@ -25,31 +26,32 @@ public class ClientThree extends Thread{
     }
 
     public void run(){
-        System.out.println("Client Online");
 
         boolean exit = false;
         while (!exit) {
             try {
                 synchronized (sync) {
                     Socket socket = new Socket("localhost", 1898);
-                    System.out.println("Ho aperto la connessione con il server!");
 
                     setOutStream(new ObjectOutputStream(socket.getOutputStream()));
 
                     outStream.writeObject(user);
                     outStream.flush();
 
+                    connect = true;
+
                     receive(socket);
                     sync.wait();
                 }
             } catch (IOException e) {
-                System.out.println("Non sono riuscito a stabilire una connessione con il server");
+                connect = false;
                 try {
                     TimeUnit.SECONDS.sleep(5);
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
             } catch (InterruptedException e) {
+                connect = false;
                 e.printStackTrace();
                 exit = true;
             }

@@ -1,7 +1,12 @@
 package progettoprogrammazione.clients.clientOne.util;
 
+import progettoprogrammazione.clients.clientOne.view.MainViewControllerOne;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 
 public class SendMail extends Thread{

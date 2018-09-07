@@ -18,9 +18,8 @@ public class SendMail extends Thread{
     public void run() {
         try {
             outStream.writeObject(mail.convertMailToString());
-            System.out.println("Ho inviato la mail al server");
         } catch (IOException e) {
-            System.out.println("Non sono riuscito ad inviare la mail");
+            e.printStackTrace();
         }
     }
 }

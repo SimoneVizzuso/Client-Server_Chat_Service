@@ -5,9 +5,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import progettoprogrammazione.clients.clientOne.model.ClientOne;
 import progettoprogrammazione.clients.clientOne.model.MailViewOne;
 
+import javax.swing.*;
 import java.time.LocalDate;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class NewMailViewControllerOne {
 
@@ -51,20 +55,25 @@ public class NewMailViewControllerOne {
 
     @FXML
     private void handleOk(){
-        if (isInputValid()){
-            newMail.setSender("simonevizzuso@unito.edu");
-            newMail.setReceiver(receiverField.getText());
-            if (ccField.getText() != null) {
-                newMail.setCc(ccField.getText());
+        if (ClientOne.connect) {
+            if (isInputValid()) {
+                newMail.setSender("simonevizzuso@unito.edu");
+                newMail.setReceiver(receiverField.getText());
+                if (ccField.getText() != null) {
+                    newMail.setCc(ccField.getText());
+                }
+                if (ccnField.getText() != null) {
+                    newMail.setCc(ccnField.getText());
+                }
+                newMail.setTitle(titleField.getText());
+                newMail.setBody(bodyArea.getText());
+                newMail.setDate(LocalDate.now());
+                newMail.setId(System.currentTimeMillis());
+                sendClicked = true;
+                newMailStage.close();
             }
-            if (ccnField.getText() != null) {
-                newMail.setCc(ccnField.getText());
-            }
-            newMail.setTitle(titleField.getText());
-            newMail.setBody(bodyArea.getText());
-            newMail.setDate(LocalDate.now());
-            newMail.setId(System.currentTimeMillis());
-            sendClicked = true;
+        } else {
+            alarmNoConnection();
             newMailStage.close();
         }
     }
@@ -100,5 +109,9 @@ public class NewMailViewControllerOne {
             alert.showAndWait();
             return false;
         }
+    }
+
+    private void alarmNoConnection(){
+        showMessageDialog(null , "Il client non è connesso!", "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }

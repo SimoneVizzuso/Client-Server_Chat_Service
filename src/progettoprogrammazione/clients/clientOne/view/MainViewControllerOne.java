@@ -206,6 +206,6 @@ public class MainViewControllerOne implements Observer {
     }
 
     private void alarmNoMail(){
-        showMessageDialog(null , "Non hai selezionato nessuna mail", "Errore", JOptionPane.ERROR_MESSAGE);
+        showMessageDialog(null , "Non hai selezionato nessuna mail!", "Errore", JOptionPane.ERROR_MESSAGE);
     }
 }
